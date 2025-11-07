@@ -96,6 +96,13 @@ const userSchema = new mongoose.Schema(
           message: "Skills must be unique"
         }
       ]
+    },
+    isPremium: {
+      type: Boolean,
+      default: false,
+    },
+    membershipType: {
+      type: String
     }
   },
   {

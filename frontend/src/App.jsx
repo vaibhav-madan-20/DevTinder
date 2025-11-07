@@ -11,6 +11,7 @@ import appStore from "./utils/appStore";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Provider } from "react-redux";
 import Password from "./components/Password";
+import Premium from "./components/Premium";
 function App() {
 
   return (
@@ -25,6 +26,7 @@ function App() {
               <Route path="/connections" element={<Connections />} />
               <Route path="/requests" element={<Requests />} />
               <Route path="/password" element={<Password />} />
+              <Route path="/premium" element={<Premium />} />
               {/* <Route path="/chat/:targetUserID" element={<Chat />} /> */}
             </Route>
           </Routes>
