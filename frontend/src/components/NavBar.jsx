@@ -79,10 +79,10 @@ const NavBar = () => {
                 <Link to="/password">Update password</Link>
               </li>
               <li>
-                <Link onClick={handleLogout}>Logout</Link>
+                <Link to="/premium">Premium</Link>
               </li>
               <li>
-                <Link to="/premium">Premium</Link>
+                <Link onClick={handleLogout}>Logout</Link>
               </li>
             </ul>
           </div>

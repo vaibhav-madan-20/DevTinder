@@ -1,6 +1,25 @@
+import { useState } from "react";
 import { BASE_URL } from "../utils/constants";
+import { useEffect } from "react";
 
 const Premium = () => {
+  const [isPremium, setIsPremium] = useState(false);
+
+  const verifyPremiumStatus = async()=> {
+    const res = await fetch(BASE_URL + "/verify/isPremium", {
+      credentials: "include"
+    });
+    const json = await res.json();
+
+    if (json.isPremium) {
+      setIsPremium(true);
+    }
+  }
+
+  useEffect(()=> {
+    verifyPremiumStatus();
+  }, []);
+
   const buyMembership = async (membershipType)=> {
     const res = await fetch(BASE_URL + "/payment/create", {
       body: JSON.stringify({ membershipType }),
@@ -28,13 +47,15 @@ const Premium = () => {
       theme: {
         color: "#F37254",
       },
+
+      handler: verifyPremiumStatus
     };
 
     const rzp = new window.Razorpay(options);
     rzp.open();
   }
 
-  return (
+  return isPremium ? <h1 className="text-white text-3xl">You are already a premium user!</h1> : (
     <div className="w-screen">
       <h1 className="text-6xl text-center mb-4">Premium</h1>
       <div className="flex">
