@@ -30,24 +30,28 @@ const Feed = () => {
     }
     handleFeed();
 
-    return ()=> {
+    return () => {
       controller.abort();
     }
   }, [dispatch, feed.length]);
+
   if (feed.length === 0)
     return (
-      <div className="text-center my-4">
-        <h1 className="text-3xl">Feed</h1>
-        <h2 className="text-lg">No more users found!</h2>
+      <div className="flex flex-col items-center justify-center py-20 animate-fade-in-up">
+        <div className="text-6xl mb-4 animate-float">🔍</div>
+        <h1 className="text-2xl font-bold gradient-text mb-2">No More Profiles</h1>
+        <p className="text-slate-400 text-sm">Check back later for new developers!</p>
       </div>
     );
+
   return (
-    <div>
-      <h1 className="text-3xl text-center my-4">Feed</h1>
-      {/* {feed.map((f, index) => (
-        <UserCard userData={feed[index]} key={feed[index]._id} />
-      ))} */}
-      <UserCard userData={feed[0]} />
+    <div className="py-8 animate-fade-in-up">
+      <h1 className="text-3xl font-bold text-center gradient-text mb-8">
+        Discover Developers
+      </h1>
+      <div className="flex justify-center">
+        <UserCard userData={feed[0]} />
+      </div>
     </div>
   );
 };

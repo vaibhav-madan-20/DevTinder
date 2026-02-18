@@ -31,7 +31,7 @@ const Body = () => {
       try {
         const res = await axios.get(`${BASE_URL}/profile/view`, {
           withCredentials: true,
-          signal, // Pass the signal to axios
+          signal,
         });
         dispatch(addUser(res.data.data));
       } catch (e) {
@@ -45,17 +45,16 @@ const Body = () => {
     fetchUser();
 
     return () => {
-      controller.abort(); // Cancel request if component unmounts or re-renders
+      controller.abort();
     };
-    //todo: add location.pathname using useSyncExternalStore
   }, [dispatch, navigate, user]);
 
   return (
-    <div className="h-screen">
+    <div className="min-h-screen flex flex-col">
       <NavBar />
-      <div className="flex justify-center">
+      <main className="flex-1 flex justify-center items-start auth-bg">
         <Outlet />
-      </div>
+      </main>
       <Footer />
     </div>
   );

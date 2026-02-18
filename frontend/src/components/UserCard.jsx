@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import axios from "axios";
 import { BASE_URL } from "../utils/constants";
 import { useDispatch } from "react-redux";
@@ -13,7 +12,7 @@ const UserCard = ({ userData, showButton = true }) => {
   const [loading, setLoading] = useState(false);
 
   const dispatch = useDispatch();
-  
+
   async function handleSend(status, _id) {
     if (loading) return;
     setLoading(true);
@@ -33,37 +32,57 @@ const UserCard = ({ userData, showButton = true }) => {
       setLoading(false);
     }
   }
-  return (
-    <div className="card card-compact bg-base-300 w-80 shadow-xl">
-      <div>
-        <figure>
-          <img src={photoUrl} className="w-40" />
-        </figure>
 
-        <div className="card-body">
-          <h2 className="card-title">
+  return (
+    <div className="glass-card rounded-2xl w-80 overflow-hidden gradient-border hover:scale-[1.02] transition-all duration-300">
+      {/* Photo */}
+      <div className="relative overflow-hidden">
+        <img
+          src={photoUrl}
+          alt={`${firstName}'s photo`}
+          className="w-full h-72 object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+        {/* Name overlay on image */}
+        <div className="absolute bottom-3 left-4 right-4">
+          <h2 className="text-xl font-bold text-white drop-shadow-lg">
             {firstName + (lastName ? " " + lastName : "")}
           </h2>
-          <p>{about}</p>
-          <p>{age && gender && age + "," + gender}</p>
-          {showButton && (
-            <div className="card-actions justify-center">
-              <button
-                className="btn btn-primary"
-                onClick={() => handleSend("ignored", _id)}
-              >
-                Ignore
-              </button>
-
-              <button
-                className="btn btn-secondary"
-                onClick={() => handleSend("interested", _id)}
-              >
-                Interested
-              </button>
-            </div>
+          {age && gender && (
+            <span className="inline-block mt-1 px-3 py-0.5 rounded-full text-xs font-medium bg-purple-500/30 text-purple-200 backdrop-blur-sm border border-purple-500/20">
+              {age} · {gender}
+            </span>
           )}
         </div>
+      </div>
+
+      {/* Body */}
+      <div className="p-5">
+        {about && (
+          <p className="text-slate-300 text-sm leading-relaxed line-clamp-3 mb-4">
+            {about}
+          </p>
+        )}
+
+        {showButton && (
+          <div className="flex gap-3 justify-center">
+            <button
+              className="flex-1 py-2.5 rounded-xl btn-danger-gradient text-sm flex items-center justify-center gap-1.5 disabled:opacity-50"
+              onClick={() => handleSend("ignored", _id)}
+              disabled={loading}
+            >
+              <span className="text-base">✕</span> Pass
+            </button>
+
+            <button
+              className="flex-1 py-2.5 rounded-xl btn-success-gradient text-sm flex items-center justify-center gap-1.5 disabled:opacity-50"
+              onClick={() => handleSend("interested", _id)}
+              disabled={loading}
+            >
+              <span className="text-base">♥</span> Connect
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
